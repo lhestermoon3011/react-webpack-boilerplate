@@ -1,3 +1,4 @@
+const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
@@ -9,8 +10,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
+        resolve: {
+          extensions: [".js", ".jsx"]
+        },
         use: {
           loader: "babel-loader"
         }
@@ -34,6 +38,11 @@ module.exports = {
         ]
       }
     ]
+  },
+  devServer: {
+    watchContentBase: true,
+    publicPath: "/",
+    historyApiFallback: true
   },
   plugins: [htmlWebpackPlugin]
 };
